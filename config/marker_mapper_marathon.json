@@ -6,7 +6,7 @@
       "image": "jmspring/marker-mapper:latest",
       "network": "BRIDGE",
       "portMappings": [
-        { "hostPort": 0, "containerPort": 8080, "servicePort": 8080 }
+        { "hostPort": 0, "containerPort": 8080, "servicePort": 10080 }
       ],
       "forcePullImage": true
     }
@@ -32,8 +32,6 @@
   }],
   "labels": {
     "HAPROXY_GROUP": "external",
-    "HAPROXY_0_VHOST": "jimsdecdagents.westus.cloudapp.azure.com",
-    "HAPROXY_0_MODE": "http",
     "HAPROXY_0_PORT": "8080"
   }
 }
