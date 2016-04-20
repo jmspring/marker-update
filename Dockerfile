@@ -5,7 +5,6 @@ ADD app.js hook_processor.js package.json ./
 ADD bin ./bin
 ADD public ./public
 ADD routes ./routes
-ADD tests ./tests
 ADD views ./views
 ADD config ./config
 
