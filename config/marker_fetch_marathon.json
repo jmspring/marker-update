@@ -1,0 +1,33 @@
+{
+  "id": "fetch",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "jmspring/marker-fetch:latest",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "hostPort": 0, "containerPort": 3100, "servicePort": 10031 }
+      ],
+      "forcePullImage":true
+    }
+  },
+  "env": {
+    "PORT": "3100",
+    "DEPLOY_TIME": "##TIME##"
+  },
+  "instances": 1,
+  "cpus": 0.25,
+  "mem": 256,
+  "healthChecks": [{
+    "protocol": "HTTP",
+    "path": "/",
+    "portIndex": 0,
+    "timeoutSeconds": 10,
+    "gracePeriodSeconds": 10,
+    "intervalSeconds": 2,
+    "maxConsecutiveFailures": 10
+  }],
+  "labels": {
+    "HAPROXY_GROUP": "internal"
+  }
+}

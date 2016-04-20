@@ -29,6 +29,11 @@ function get_leader_url(callback) {
 function update_app(app, callback) {
     var file = 'marker_' + app + '_marathon.json';
     var json = fs.readFileSync(path.join(__dirname, 'config', file), 'utf8');
+    var now = Math.floor(Date.now() / 1000);
+    
+    // add deployment time to json
+    json = json.replace("##TIME##", now.toString());
+    console.log(json);
     
     // retrieve the URL for the Marathon leader
     get_leader_url(function(url) {
