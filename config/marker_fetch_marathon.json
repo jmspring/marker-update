@@ -28,6 +28,8 @@
     "maxConsecutiveFailures": 10
   }],
   "labels": {
-    "HAPROXY_GROUP": "internal"
+    "HAPROXY_GROUP": "internal",
+    "HAPROXY_0_BACKEND_HTTP_OPTIONS": "  option forwardfor\n  option http-server-close\n  option forceclose\n  http-request set-header X-Forwarded-Port %[dst_port]\n  http-request add-header X-Forwarded-Proto https if { ssl_fc }\n  timeout queue 5000\n  timeout server 86400000\n  timeout connect 5000\n",
+    "HAPROXY_0_BACKEND_HEAD": "\nbackend fetch_10031\n  balance source\n  mode http\n"
   }
 }
