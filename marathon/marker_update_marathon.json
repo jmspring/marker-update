@@ -14,7 +14,7 @@
   "env": {
     "MARATHON_URL": "http://172.16.0.5/marathon/v2",
     "PORT": "4242",
-    "SEQUENCE": "1"
+    "SEQUENCE": "2"
   },
   "instances": 1,
   "cpus": 0.1,
@@ -30,6 +30,8 @@
   }],
   "labels": {
     "HAPROXY_GROUP": "external",
-    "HAPROXY_0_PORT": "4242"
+    "HAPROXY_0_VHOST": "jimsdecdagents.westus.cloudapp.azure.com",
+    "HAPROXY_0_PATH": "/update",
+    "HAPROXY_0_BACKEND_HEAD": "\nbackend update_10042\n  balance roundrobin\n  mode http\n  reqrep ^([^\\ ]*)\\ /update/(.*)     \\1\\ /\\2\n"
   }
 }

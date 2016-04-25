@@ -32,9 +32,8 @@
   }],
   "labels": {
     "HAPROXY_GROUP": "external",
-    "HAPROXY_0_PORT": "8080",
-    "HAPROXY_0_BACKEND_HTTP_OPTIONS": "  option forwardfor\n  option http-server-close\n  option forceclose\n  http-request set-header X-Forwarded-Port %[dst_port]\n  http-request add-header X-Forwarded-Proto https if { ssl_fc }\n  timeout queue 5000\n  timeout server 86400000\n  timeout connect 5000\n",
-    "HAPROXY_0_BACKEND_HEAD": "\nbackend mapper_8080\n  balance source\n  mode http\n"
-
+    "HAPROXY_0_VHOST": "jimsdecdagents.westus.cloudapp.azure.com",
+    "HAPROXY_0_STICKY": "true",
+    "HAPROXY_0_BACKEND_HEAD": "\nbackend mapper_10080\n  balance roundrobin\n  mode http\n  reqrep ^([^\\ ]*)\\ /mapper/(.*)     \\1\\ /\\2\n"
   }
 }
