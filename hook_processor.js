@@ -33,15 +33,19 @@ function update_app(app, callback) {
     
     // add deployment time to json
     json = json.replace("##TIME##", now.toString());
-    console.log(json);
     
     // retrieve the URL for the Marathon leader
     get_leader_url(function(url) {
         // does the app exist?
-        request
-            .get(url + '/apps/' + app)
-            .on('response', function(res) {
-                var method = (res.statusCode == 200 ? "PUT" : "POST");
+        request(url + '/apps/' + app, function(error, response, body) {
+            if(!error) {
+                var method = response.statusCode == 200 ? "PUT" : "POST";
+                
+                // need to preserve number of instances
+                var info = JSON.parse(body);
+                var instances = info['app']['instances'];
+                json = json.replace("##INSTANCES##", instances);
+                
                 request({ 
                         url: url + '/apps' + (method == 'PUT' ? '/' + app : ''),
                         method: method, 
@@ -57,11 +61,11 @@ function update_app(app, callback) {
                         }
                     }
                 );
-            })
-            .on('error', function(err) {
-                console.log(err);
-                throw(err);
-            });
+            } else {
+                console.log('Error retrieving app information: ' + error);
+                throw(error);
+            }
+        });
     });
 }
 
