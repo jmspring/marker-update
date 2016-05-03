@@ -43,9 +43,11 @@ function update_app(app, callback) {
                 
                 // need to preserve number of instances
                 var info = JSON.parse(body);
-                var instances = info['app']['instances'];
+                var instances = 1;
+                if(info && info['app'] && info['app']['instances']) {
+                    instances = info['app']['instances'];
+                }
                 json = json.replace("##INSTANCES##", instances);
-                
                 request({ 
                         url: url + '/apps' + (method == 'PUT' ? '/' + app : ''),
                         method: method, 
