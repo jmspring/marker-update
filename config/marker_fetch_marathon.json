@@ -29,6 +29,6 @@
   }],
   "labels": {
     "HAPROXY_GROUP": "internal",
-    "HAPROXY_STICKY": "true"
+    "HAPROXY_0_STICKY": "true"
   }
 }
