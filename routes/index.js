@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 /* webhook */
 router.post('/hook/:app', function(req, res, next) {
-    if((req.params.app != 'fetch') && (req.params.app != 'mapper')) {
+    if((req.params.app != 'fetch') && (req.params.app != 'mapper') && (req.params.app != 'markerdata')) {
         res.status(400);
         res.send('Nothing here.');
     } else {

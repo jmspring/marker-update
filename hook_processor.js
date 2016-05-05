@@ -74,7 +74,7 @@ function update_app(app, callback) {
 var hook_processor = {
     handle: function(app, callback) {
         var res = null;
-        if((app == 'fetch') || (app == 'mapper')) {
+        if((app == 'fetch') || (app == 'mapper') || (app == 'markerdata')) {
             update_app(app, function(res) {
                 callback(res);
             });

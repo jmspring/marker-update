@@ -1,24 +1,22 @@
 {
-  "id": "mapper",
+  "id": "markerdata",
   "container": {
     "type": "DOCKER",
     "docker": {
       "image": "jmspring/marker-mapper:latest",
       "network": "BRIDGE",
       "portMappings": [
-        { "hostPort": 0, "containerPort": 8080, "servicePort": 10080 }
+        { "hostPort": 0, "containerPort": 8081, "servicePort": 10081 }
       ],
       "forcePullImage": true
     }
   },
   "env": {
     "MAPBASE_KEY": "pk.eyJ1Ijoiam1zcHJpbmciLCJhIjoiY2luMGl1b2FjMDllZHZsbTRhN3hybWp0eSJ9.KI0FDq_c4jeB2YgmlDw_6Q",
-    "PORT": "8080",
+    "PORT": "8081",
     "FETCH_HOST": "marathon-lb-internal.marathon.mesos",
     "FETCH_PORT": "10031",
-    "DEPLOY_TIME": "##TIME##",
-    "MARKER_PATH": "/markerdata",
-    "DISABLE_CHANNEL": "1"
+    "DEPLOY_TIME": "##TIME##"
   },
   "instances": ##INSTANCES##,
   "cpus": 0.25,
@@ -35,6 +33,8 @@
   "labels": {
     "HAPROXY_GROUP": "external",
     "HAPROXY_0_VHOST": "jimsdcdagents.westeurope.cloudapp.azure.com",
-    "HAPROXY_0_STICKY": "true"
+    "HAPROXY_0_STICKY": "true",
+    "HAPROXY_0_PATH": "/markerdata",
+    "HAPROXY_0_BACKEND_HEAD": "\nbackend markerdata_10081\n  balance roundrobin\n  mode http\n  reqrep ^([^\\ ]*)\\ /markerdata/(.*)     \\1\\ /\\2\n"    
   }
 }
